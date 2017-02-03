@@ -1,3 +1,6 @@
 *.o
+*.obj
 *.exe
 *.out
+stu.dat
+stu_manage

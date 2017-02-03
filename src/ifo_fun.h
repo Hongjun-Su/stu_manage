@@ -5,12 +5,12 @@
 #define STU_NUM 80
 
 typedef struct student{
-	char num[NUM_SIZE];
-	char name[NAME_SIZE];
-	float score[SCORE_NUM+1];
-	float sum;
-	float ave;
-	struct student *next;	
+    char num[NUM_SIZE];
+    char name[NAME_SIZE];
+    float score[SCORE_NUM+1];
+    float sum;
+    float ave;
+    struct student *next;   
 }stu; 
 
 stu* ifo_score_max(int score_ch, stu *p, stu **p_ptr);

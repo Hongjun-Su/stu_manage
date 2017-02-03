@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include <windows.h>
 #include "menu_fun.h"
 #include "file_fun.h"
 #include "ifo_fun.h"
@@ -12,591 +11,592 @@ int file_saved = 1;
 
 void ifo_input(void)
 {
-	int j;
-	char ch;
-	
-	file_saved = 0;
-	
-	do
-	{
-		ifo_print();
-		
-		printf("\n\t\t**************ÊäÈëÒªÌí¼ÓµÄ¼ÇÂ¼**************\n");
-		
-		printf("\t\tÊäÈëÑ§ºÅ£º");
-		gets(s[stu_count+1].num);
-		
-		printf("\t\tÊäÈëĞÕÃû£º");
-		gets(s[stu_count+1].name);
-		
-		s[stu_count+1].sum = 0;
-		
-		for (j=1; j<SCORE_NUM+1; j++)
-		{
-			printf("\t\tÊäÈë³É¼¨%d£º",j);
-			scanf("%f", &s[stu_count+1].score[j]);
-			
-			s[stu_count+1].sum += s[stu_count+1].score[j];
-		}
-		
-		s[stu_count+1].ave = s[stu_count+1].sum/SCORE_NUM;
-		
-		s[stu_count].next = &s[stu_count+1];
-		
-		stu_count++;
-		
-		s[stu_count].next = NULL; 
-		
-		ifo_print(); 
-		
-		getchar();
-  		printf("\n\tÊÇ·ñ¼ÌĞøÌí¼Ó¼ÇÂ¼(Y/N)£º");
+    int j;
+    char ch;
+    
+    file_saved = 0;
+    
+    do
+    {
+        ifo_print();
+        
+        printf("\n\t\t**************è¾“å…¥è¦æ·»åŠ çš„è®°å½•**************\n");
+        
+        printf("\t\tè¾“å…¥å­¦å·ï¼š");
+        fgets(s[stu_count+1].num, NUM_SIZE, stdin);
+        
+        printf("\t\tè¾“å…¥å§“åï¼š");
+        fgets(s[stu_count+1].name, NAME_SIZE, stdin);
+        
+        s[stu_count+1].sum = 0;
+        
+        for (j=1; j<SCORE_NUM+1; j++)
+        {
+            printf("\t\tè¾“å…¥æˆç»©%dï¼š",j);
+            scanf("%f", &s[stu_count+1].score[j]);
+            
+            s[stu_count+1].sum += s[stu_count+1].score[j];
+        }
+        
+        s[stu_count+1].ave = s[stu_count+1].sum/SCORE_NUM;
+        
+        s[stu_count].next = &s[stu_count+1];
+        
+        stu_count++;
+        
+        s[stu_count].next = NULL; 
+        
+        ifo_print(); 
+        
+        getchar();
+        printf("\n\tæ˜¯å¦ç»§ç»­æ·»åŠ è®°å½•(Y/N)ï¼š");
         scanf("%c", &ch);
-		getchar();
-		
+        getchar();
+        
     }while ('Y'==ch || 'y'==ch);
       
-	menu();
+    menu();
 }
 
 void ifo_delete(void)
 {
-	int j,flag;
-	char ch;
-	char del_num[NUM_SIZE];
-	stu *p, *pt;
-		
-	do
-	{
-		ifo_print();
-		 
-		printf("\n\t\t**************ÊäÈëÒªÉ¾³ıµÄÑ§ºÅ**************\n");
-		printf("\t\tÊäÈëÑ§ºÅ£º");
-		
-		gets(del_num);
-		
-		p = s[0].next;
-		pt = &s[0];
-		
-		flag = 0;
-		
-		while (stu_count != 0 && p != NULL)
-		{
-			if (strcmp(p->num, del_num) == 0)
-			{
-				pt->next = p->next;	
-				stu_count--;
-				
-				flag = 1;
-				file_saved = 0;
-				
-				break;
-			}
-			
-			pt = p;	
-			p = p->next;
-		}
-		
-		ifo_print(); 
-		
-		if (!flag)
-			printf("\n\t²¢Ã»ÓĞ¸ÃÑ§ÉúĞÅÏ¢£¡\n");	
-		
-  		printf("\n\tÊÇ·ñ¼ÌĞøÉ¾³ı¼ÇÂ¼(Y/N)£º");
+    int j,flag;
+    char ch;
+    char del_num[NUM_SIZE];
+    stu *p, *pt;
+        
+    do
+    {
+        ifo_print();
+         
+        printf("\n\t\t**************è¾“å…¥è¦åˆ é™¤çš„å­¦å·**************\n");
+        printf("\t\tè¾“å…¥å­¦å·ï¼š");
+        
+        fgets(del_num, NUM_SIZE, stdin);
+        
+        p = s[0].next;
+        pt = &s[0];
+        
+        flag = 0;
+        
+        while (stu_count != 0 && p != NULL)
+        {
+            if (strcmp(p->num, del_num) == 0)
+            {
+                pt->next = p->next; 
+                stu_count--;
+                
+                flag = 1;
+                file_saved = 0;
+                
+                break;
+            }
+            
+            pt = p; 
+            p = p->next;
+        }
+        
+        ifo_print(); 
+        
+        if (!flag)
+            printf("\n\tå¹¶æ²¡æœ‰è¯¥å­¦ç”Ÿä¿¡æ¯ï¼\n"); 
+        
+        printf("\n\tæ˜¯å¦ç»§ç»­åˆ é™¤è®°å½•(Y/N)ï¼š");
         scanf("%c", &ch);
-		getchar();
+        getchar();
     }while ('Y'==ch || 'y'==ch);
     
-	menu();
+    menu();
 }
 
 void ifo_modify(void)
 {
-	int j,flag;
-	char ch;
-	char modify_num[NUM_SIZE];
-	stu *p;
-	
-	do
-	{
-		ifo_print();
-		 
-		printf("\n\t\t**************ÊäÈëÒªĞŞ¸ÄµÄÑ§ºÅ**************\n");
-		printf("\t\tÊäÈëÑ§ºÅ£º");
-		
-		gets(modify_num);
-		
-		p = s[0].next;
-		
-		flag = 0;
-		
-		while (stu_count != 0 && p != NULL)
-		{
-			if (strcmp(p->num, modify_num) == 0)
-			{	
-					system("cls");
-					
-					ifo_print_title();
-					ifo_print_stu(p, 1);
-					
-					printf("\n\t\t**************ÊäÈëÒªĞŞ¸ÄµÄĞÅÏ¢**************\n");
-					
-					printf("\t\tÊäÈëÑ§ºÅ£º");
-					gets(p->num);
-		
-					printf("\t\tÊäÈëĞÕÃû£º");
-					gets(p->name);
-		
-					p->sum = 0;
-		
-					for (j=1; j<SCORE_NUM+1; j++)
-					{
-						printf("\t\tÊäÈë³É¼¨%d£º",j);
-						scanf("%f", &p->score[j]);
-			
-						p->sum += p->score[j];
-					}
-		
-					p->ave = p->sum/SCORE_NUM;
-					
-					ifo_print();
-					
-					printf("\n\tĞŞ¸ÄĞÅÏ¢³É¹¦£¡\n");
-					
-					flag = 1;
-					file_saved = 0;
-					
-					break; 
-			}
-				
-			p = p->next;	 			
-		}
-		if (!flag)
-			printf("\n\t²¢Ã»ÓĞ¸ÃÑ§ÉúĞÅÏ¢£¡\n");	
-		
-  		printf("\n\tÊÇ·ñ¼ÌĞøĞŞ¸Ä(Y/N)£º");
+    int j,flag;
+    char ch;
+    char modify_num[NUM_SIZE];
+    stu *p;
+    
+    do
+    {
+        ifo_print();
+         
+        printf("\n\t\t**************è¾“å…¥è¦ä¿®æ”¹çš„å­¦å·**************\n");
+        printf("\t\tè¾“å…¥å­¦å·ï¼š");
+        
+        fgets(modify_num, NUM_SIZE, stdin);
+        
+        p = s[0].next;
+        
+        flag = 0;
+        
+        while (stu_count != 0 && p != NULL)
+        {
+            if (strcmp(p->num, modify_num) == 0)
+            {   
+                printf("\033c");
+                    
+                ifo_print_title();
+                ifo_print_stu(p, 1);
+                    
+                printf("\n\t\t**************è¾“å…¥è¦ä¿®æ”¹çš„ä¿¡æ¯**************\n");
+                    
+                printf("\t\tè¾“å…¥å­¦å·ï¼š");
+                fgets(p->num, NUM_SIZE, stdin);
+        
+                printf("\t\tè¾“å…¥å§“åï¼š");
+                fgets(p->name, NAME_SIZE, stdin);
+        
+                p->sum = 0;
+        
+                for (j=1; j<SCORE_NUM+1; j++)
+                {
+                    printf("\t\tè¾“å…¥æˆç»©%dï¼š",j);
+                    scanf("%f", &p->score[j]);
+            
+                    p->sum += p->score[j];
+                }
+        
+                p->ave = p->sum/SCORE_NUM;
+                    
+                ifo_print();
+                    
+                printf("\n\tä¿®æ”¹ä¿¡æ¯æˆåŠŸï¼\n");
+                    
+                flag = 1;
+                file_saved = 0;
+                    
+                break; 
+            }
+                
+            p = p->next;                
+        }
+        if (!flag)
+            printf("\n\tå¹¶æ²¡æœ‰è¯¥å­¦ç”Ÿä¿¡æ¯ï¼\n"); 
+        
+        printf("\n\tæ˜¯å¦ç»§ç»­ä¿®æ”¹(Y/N)ï¼š");
         scanf("%c", &ch);
-		getchar();
+        getchar();
     }while ('Y'==ch || 'y'==ch);
     
-	menu();
+    menu();
 }
 
 void ifo_search(void)
 {
-	int j,flag;
-	char ch;
-	char search_num[NUM_SIZE];
-	stu *p;
-		
-	do
-	{
-		system("cls");
+    int j,flag;
+    char ch;
+    char search_num[NUM_SIZE];
+    stu *p;
+        
+    do
+    {
+        printf("\033c");
 
-		printf("\t\t**************ÊäÈëÒª²éÑ¯µÄÑ§ºÅ**************\n");
-		printf("\t\tÊäÈëÑ§ºÅ£º");
-		
-		scanf("%s", search_num);
-		
-		p = s[0].next;
-		
-		flag = 0;
-		
-		while (stu_count != 0 && p != NULL)
-		{
-			if (strcmp(p->num, search_num) == 0)
-			{
-					system("cls");
-					
-					ifo_print_title();
-					ifo_print_stu(p, 1);
-					
-					flag = 1;
-					
-					break; 
-			}
-				
-			p = p->next;	 			
-		}
-		if (!flag)
-			printf("\n\t²¢Ã»ÓĞ¸ÃÑ§ÉúĞÅÏ¢£¡\n");		
-			
-		getchar();
-  		printf("\n\tÊÇ·ñ¼ÌĞø²éÑ¯(Y/N)£º");
+        printf("\t\t**************è¾“å…¥è¦æŸ¥è¯¢çš„å­¦å·**************\n");
+        printf("\t\tè¾“å…¥å­¦å·ï¼š");
+        
+        fgets(search_num, NUM_SIZE, stdin);
+        
+        p = s[0].next;
+        
+        flag = 0;
+        
+        while (stu_count != 0 && p != NULL)
+        {
+            if (strcmp(p->num, search_num) == 0)
+            {
+                printf("\033c");
+                    
+                ifo_print_title();
+                ifo_print_stu(p, 1);
+                    
+                flag = 1;
+                    
+                break;
+            }
+                
+            p = p->next;
+        }
+        if (!flag)
+            printf("\n\tå¹¶æ²¡æœ‰è¯¥å­¦ç”Ÿä¿¡æ¯ï¼\n");     
+            
+        getchar();
+        printf("\n\tæ˜¯å¦ç»§ç»­æŸ¥è¯¢(Y/N)ï¼š");
         scanf("%c", &ch);
-		getchar();
+        getchar();
     }while ('Y'==ch || 'y'==ch);
     
-	menu();
+    menu();
 }
 
 void ifo_view(void)
 {
-	ifo_print();
-	
-	printf("\n\t°´ÈÎÒâ¼ü·µ»ØÖ÷²Ëµ¥...");
-	system("pause>nul");
-	
-	menu(); 
+    ifo_print();
+    
+    printf("\n\tæŒ‰Enteré”®è¿”å›ä¸»èœå•...");
+    getchar();
+    
+    menu(); 
 }
 
 void ifo_sort(void)
 {
-	int i=1;
-	int num;
-	int sort_ch, sort_op;
-	stu *p=s[0].next, *pt=&s[0], *p_ptr=NULL, *p_find=NULL; 
-	
-	stu* (*score_sort[])(int, stu*, stu**)={ifo_score_max, ifo_score_min};
+    int i=1;
+    int num;
+    int sort_ch, sort_op;
+    stu *p=s[0].next, *pt=&s[0], *p_ptr=NULL, *p_find=NULL; 
+    
+    stu* (*score_sort[])(int, stu*, stu**)={ifo_score_max, ifo_score_min};
 
-	menu_sort(&sort_ch, &sort_op, &num);
-	
-	file_saved = 0;
-		
-	while (stu_count != 0 && p != NULL && i<stu_count)
-	{
-		p_find = (*score_sort[sort_op])(sort_ch, p, &p_ptr);
-		
-		if (p_ptr != &s[0])
-		{
-			p_ptr->next = p_find->next;
-		
-			p_find->next = pt->next;
-		
-			pt->next = p_find;
-		}
-		
-		pt = p_find;	
-			
-		p = p_find->next;
-			
-		i++;
-	}
-	
-	ifo_view();
+    menu_sort(&sort_ch, &sort_op, &num);
+    
+    file_saved = 0;
+        
+    while (stu_count != 0 && p != NULL && i<stu_count)
+    {
+        p_find = (*score_sort[sort_op])(sort_ch, p, &p_ptr);
+        
+        if (p_ptr != &s[0])
+        {
+            p_ptr->next = p_find->next;
+        
+            p_find->next = pt->next;
+        
+            pt->next = p_find;
+        }
+        
+        pt = p_find;    
+            
+        p = p_find->next;
+            
+        i++;
+    }
+    
+    ifo_view();
 }
 
 void ifo_stats(void)
 {
-	int num;
-	int stats_ch;
-	
-	menu_stats(&stats_ch, &num);
-	
-	if (stats_ch == num)
-		menu();
-	else
-		ifo_print_stats(stats_ch);
+    int num;
+    int stats_ch;
+    
+    menu_stats(&stats_ch, &num);
+    
+    if (stats_ch == num)
+        menu();
+    else
+        ifo_print_stats(stats_ch);
 }
 
 void ifo_print_stats(int stats_ch)
 {
-	stu *p=s[0].next,*p_max, *p_min, *p_find;
-	int n_pass=0, n_fail=0;
-	int limit;
-	
-	if (stats_ch == SCORE_NUM+1)
-		limit = SCORE_NUM*60;
-	else
-		limit = 60;
-		
-	system("cls");
-	
-	printf("\t----------------------------×î¸ß·Ö----------------------------\n\n");
-	p_max =  ifo_score_max(stats_ch, p, NULL);
-	ifo_print_title();
-	ifo_print_stu(p_max,1);
-	
-	printf("\n\n\t----------------------------×îµÍ·Ö----------------------------\n\n");
-	p_min =  ifo_score_min(stats_ch, p, NULL);
-	ifo_print_title();
-	ifo_print_stu(p_min,1);
-	
-	printf("\n\n\t---------------------------¼°¸ñÃûµ¥---------------------------\n\n");
-	ifo_print_title();
-	while (p != NULL)
-	{	
-		p_find =  ifo_score_pass(stats_ch, limit, p);
-		
-		if (p_find != NULL)
-		{
-			ifo_print_stu(p_find,1); 
-			n_pass++;
-		}
-		
-		p = p->next;
-	}	
-	
-	p = s[0].next;
-	
-	printf("\n\n\t--------------------------²»¼°¸ñÃûµ¥--------------------------\n\n");
-	ifo_print_title();
-	while (p != NULL)
-	{
-		p_find =  ifo_score_fail(stats_ch, limit, p);
-		
-		if (p_find != NULL)
-		{
-			ifo_print_stu(p_find,1); 
-			n_fail++;
-		}
-		
-		p = p->next;
-	}	
-	
-	printf("\n\t¼°¸ñÈËÊı£º%d\n", n_pass);
-	printf("\t²»¼°¸ñÈËÊı£º%d\n", n_fail);
-	printf("\t°à¼¶Æ½¾ù·Ö£º%.2f\n", ifo_score_ave(stats_ch, s[0].next));
-	
-	printf("\n\t°´ÈÎÒâ¼ü·µ»Ø...");
-	system("pause>nul");
-	
-	ifo_stats(); 
+    stu *p=s[0].next,*p_max, *p_min, *p_find;
+    int n_pass=0, n_fail=0;
+    int limit;
+    
+    if (stats_ch == SCORE_NUM+1)
+        limit = SCORE_NUM*60;
+    else
+        limit = 60;
+        
+    printf("\033c");
+    
+    printf("\t----------------------------æœ€é«˜åˆ†----------------------------\n\n");
+    p_max =  ifo_score_max(stats_ch, p, NULL);
+    ifo_print_title();
+    ifo_print_stu(p_max,1);
+    
+    printf("\n\n\t----------------------------æœ€ä½åˆ†----------------------------\n\n");
+    p_min =  ifo_score_min(stats_ch, p, NULL);
+    ifo_print_title();
+    ifo_print_stu(p_min,1);
+    
+    printf("\n\n\t---------------------------åŠæ ¼åå•---------------------------\n\n");
+    ifo_print_title();
+    while (p != NULL)
+    {   
+        p_find =  ifo_score_pass(stats_ch, limit, p);
+        
+        if (p_find != NULL)
+        {
+            ifo_print_stu(p_find,1); 
+            n_pass++;
+        }
+        
+        p = p->next;
+    }   
+    
+    p = s[0].next;
+    
+    printf("\n\n\t--------------------------ä¸åŠæ ¼åå•--------------------------\n\n");
+    ifo_print_title();
+    while (p != NULL)
+    {
+        p_find =  ifo_score_fail(stats_ch, limit, p);
+        
+        if (p_find != NULL)
+        {
+            ifo_print_stu(p_find,1); 
+            n_fail++;
+        }
+        
+        p = p->next;
+    }   
+    
+    printf("\n\tåŠæ ¼äººæ•°ï¼š%d\n", n_pass);
+    printf("\tä¸åŠæ ¼äººæ•°ï¼š%d\n", n_fail);
+    printf("\tç­çº§å¹³å‡åˆ†ï¼š%.2f\n", ifo_score_ave(stats_ch, s[0].next));
+    
+    printf("\n\tæŒ‰Enteré”®è¿”å›...");
+    getchar();
+    
+    ifo_stats(); 
 }
 
 void ifo_print(void)
 {
-	stu *p=s[0].next;
-	int j;
-	
-	system("cls");
-		
-	printf("\t---------------------µ±Ç°ÒÑÓĞÑ§Éú¼ÇÂ¼:%3d---------------------\n\n",stu_count);
-	
-	ifo_print_title();
-		
-	ifo_print_stu(p, stu_count);		
+    stu *p=s[0].next;
+    int j;
+    
+    printf("\033c");
+        
+    printf("\t---------------------å½“å‰å·²æœ‰å­¦ç”Ÿè®°å½•:%3d---------------------\n\n",stu_count);
+    
+    ifo_print_title();
+        
+    ifo_print_stu(p, stu_count);        
 }
 
 void ifo_print_title(void)
 {
-	int j;
-	
-	printf("\t\tÑ§ºÅ\t  ĞÕÃû\t");
-		
-	for (j=1;j<SCORE_NUM+1; j++)
-		printf("  ³É¼¨%d\t",j);
-	
-	printf("  ×Ü·Ö\tÆ½¾ù·Ö\t");
-	
-	printf("\n\n");	
+    int j;
+    
+    printf("\t\tå­¦å·\t  å§“å\t");
+        
+    for (j=1;j<SCORE_NUM+1; j++)
+        printf("  æˆç»©%d\t",j);
+    
+    printf("  æ€»åˆ†\tå¹³å‡åˆ†\t");
+    
+    printf("\n\n"); 
 }
 
 void ifo_print_stu(stu *p, int num)
 {
-	int i=1, j;
+    int i=1, j;
 
-	while (stu_count != 0 && p != NULL && i <= num && i <= stu_count)
-	{
-		printf("%20s",p->num);
-		printf("%10s",p->name);
-		
-		printf(" ");
-		
-		for (j=1;j<SCORE_NUM+1; j++)
-			printf("%8.2f",p->score[j]);
-		
-		printf("%8.2f",p->sum);
-		printf("%7.2f",p->ave);
-		
-		printf("\n");
-			
-		p = p->next;
-			
-		i++;
-	}
+    while (stu_count != 0 && p != NULL && i <= num && i <= stu_count)
+    {
+        printf("%20s",p->num);
+        printf("%10s",p->name);
+        
+        printf(" ");
+        
+        for (j=1;j<SCORE_NUM+1; j++)
+            printf("%8.2f",p->score[j]);
+        
+        printf("%8.2f",p->sum);
+        printf("%7.2f",p->ave);
+        
+        printf("\n");
+            
+        p = p->next;
+            
+        i++;
+    }
 }
 
 float ifo_score_ave(int score_ch, stu *p)
 {
-	float sum=0, ave;
-	
-	while (p != NULL)
-	{
-		if (score_ch <= SCORE_NUM)
-			sum += p->score[score_ch];
-		else if (score_ch == SCORE_NUM+1)
-			sum += p->sum;
-		else if (score_ch == SCORE_NUM+2)
-			sum += p->ave;
-		
-		p = p->next; 
-	}
-	
-	ave = sum/stu_count;
-	
-	return ave;	
+    float sum=0, ave;
+    
+    while (p != NULL)
+    {
+        if (score_ch <= SCORE_NUM)
+            sum += p->score[score_ch];
+        else if (score_ch == SCORE_NUM+1)
+            sum += p->sum;
+        else if (score_ch == SCORE_NUM+2)
+            sum += p->ave;
+        
+        p = p->next; 
+    }
+    
+    ave = sum/stu_count;
+    
+    return ave; 
 }
 
 stu* ifo_score_max(int score_ch, stu *p, stu **p_ptr)
 {
-	stu *p_max=p, *pt=&s[0];
+    stu *p_max=p, *pt=&s[0];
 
-	if (p_ptr != NULL)
-		*p_ptr = pt;
-	
-	while (p != NULL)
-	{
-		if (score_ch <= SCORE_NUM && p_max->score[score_ch] < p->score[score_ch])
-		{
-			p_max = p;
-			
-			if (p_ptr != NULL)
-				*p_ptr = pt;
-		}
-		else if (score_ch == SCORE_NUM+1 && p_max->sum < p->sum)
-		{
-			p_max = p;
-			
-			if (p_ptr != NULL)
-				*p_ptr = pt;
-		}
-		else if (score_ch == SCORE_NUM+2 && p_max->ave < p->ave)
-		{
-			p_max = p;
-			
-			if (p_ptr != NULL)
-				*p_ptr = pt;
-		}
-		
-		pt = p;
-		p = p->next; 
-	}
-	
-	return p_max;	
+    if (p_ptr != NULL)
+        *p_ptr = pt;
+    
+    while (p != NULL)
+    {
+        if (score_ch <= SCORE_NUM && p_max->score[score_ch] < p->score[score_ch])
+        {
+            p_max = p;
+            
+            if (p_ptr != NULL)
+                *p_ptr = pt;
+        }
+        else if (score_ch == SCORE_NUM+1 && p_max->sum < p->sum)
+        {
+            p_max = p;
+            
+            if (p_ptr != NULL)
+                *p_ptr = pt;
+        }
+        else if (score_ch == SCORE_NUM+2 && p_max->ave < p->ave)
+        {
+            p_max = p;
+            
+            if (p_ptr != NULL)
+                *p_ptr = pt;
+        }
+        
+        pt = p;
+        p = p->next; 
+    }
+    
+    return p_max;   
 }
 
 stu* ifo_score_min(int score_ch, stu *p, stu **p_ptr)
 {
-	stu *p_min=p, *pt=&s[0];
+    stu *p_min=p, *pt=&s[0];
 
-	if (p_ptr != NULL)
-		*p_ptr = pt;
-	
-	while (p != NULL)
-	{
-		if (score_ch <= SCORE_NUM && p_min->score[score_ch] > p->score[score_ch])
-		{
-			p_min = p;
-			
-			if (p_ptr != NULL)
-				*p_ptr = pt;
-		}
-		else if (score_ch == SCORE_NUM+1 && p_min->sum > p->sum)
-		{
-			p_min = p;
-			
-			if (p_ptr != NULL)
-				*p_ptr = pt;
-		}
-		else if (score_ch == SCORE_NUM+2 && p_min->ave > p->ave)
-		{
-			p_min = p;
-			
-			if (p_ptr != NULL)
-				*p_ptr = pt;
-		}
-		
-		pt = p;
-		p = p->next; 
-	}
-	
-	return p_min;	
+    if (p_ptr != NULL)
+        *p_ptr = pt;
+    
+    while (p != NULL)
+    {
+        if (score_ch <= SCORE_NUM && p_min->score[score_ch] > p->score[score_ch])
+        {
+            p_min = p;
+            
+            if (p_ptr != NULL)
+                *p_ptr = pt;
+        }
+        else if (score_ch == SCORE_NUM+1 && p_min->sum > p->sum)
+        {
+            p_min = p;
+            
+            if (p_ptr != NULL)
+                *p_ptr = pt;
+        }
+        else if (score_ch == SCORE_NUM+2 && p_min->ave > p->ave)
+        {
+            p_min = p;
+            
+            if (p_ptr != NULL)
+                *p_ptr = pt;
+        }
+        
+        pt = p;
+        p = p->next; 
+    }
+    
+    return p_min;   
 }
 
 stu* ifo_score_pass(int score_ch, int limit, stu *p)
 {
-	if (p != NULL)
-	{
-		if (score_ch <= SCORE_NUM && p->score[score_ch] >= limit)
-			return p;
-		else if (score_ch == SCORE_NUM+1 && p->sum >= limit)
-			return p;
-		else if (score_ch == SCORE_NUM+2 && p->ave >= limit)
-			return p;
-	}
-	
-	return NULL;
+    if (p != NULL)
+    {
+        if (score_ch <= SCORE_NUM && p->score[score_ch] >= limit)
+            return p;
+        else if (score_ch == SCORE_NUM+1 && p->sum >= limit)
+            return p;
+        else if (score_ch == SCORE_NUM+2 && p->ave >= limit)
+            return p;
+    }
+    
+    return NULL;
 }
 
 stu* ifo_score_fail(int score_ch, int limit, stu *p)
 {
-	if (p != NULL)
-	{
-		if (score_ch <= SCORE_NUM && p->score[score_ch] < limit)
-			return p;
-		else if (score_ch == SCORE_NUM+1 && p->sum < limit)
-			return p;
-		else if (score_ch == SCORE_NUM+2 && p->ave < limit)
-			return p;
-	}
-	
-	return NULL;
+    if (p != NULL)
+    {
+        if (score_ch <= SCORE_NUM && p->score[score_ch] < limit)
+            return p;
+        else if (score_ch == SCORE_NUM+1 && p->sum < limit)
+            return p;
+        else if (score_ch == SCORE_NUM+2 && p->ave < limit)
+            return p;
+    }
+    
+    return NULL;
 }
 
 void ifo_reload(void)
 {
-	char ch;
-	
-	if (!file_saved) 
-	{
-		printf("\n\t\tµ±Ç°Êı¾İ²¢Î´±£´æ£¡ÊÇ·ñÈ·ÈÏ(Y/N)£º");
-	
-		scanf("%c", &ch);
-		getchar();
+    char ch;
+    
+    if (!file_saved) 
+    {
+        printf("\n\t\tå½“å‰æ•°æ®å¹¶æœªä¿å­˜ï¼æ˜¯å¦ç¡®è®¤(Y/N)ï¼š");
+    
+        scanf("%c", &ch);
+        getchar();
 
-		if ('Y'==ch || 'y'==ch)
-		{
-			file_load();
-	
-			system("cls");
-	
-			printf("ÖØĞÂÔØÈë³É¹¦£¡°´ÈÎÒâ¼ü·µ»ØÖ÷²Ëµ¥..."); 
-	
-			system("pause>nul");
-		}
-	}
-	
-	menu(); 
+        if ('Y'==ch || 'y'==ch)
+        {
+            file_load();
+    
+            printf("\033c");
+    
+            printf("é‡æ–°è½½å…¥æˆåŠŸï¼æŒ‰Enteré”®è¿”å›ä¸»èœå•..."); 
+    
+            getchar();
+        }
+    }
+    
+    menu(); 
 }
 
 void ifo_save(void)
 {
-	char ch;
-	
-	printf("\n\t\tÊÇ·ñÈ·ÈÏ(Y/N)£º");
-	scanf("%c", &ch);
-	getchar();
-	
-	if ('Y'==ch || 'y'==ch)
-	{
-		file_save();
-		
-		printf("°´ÈÎÒâ¼ü·µ»ØÖ÷²Ëµ¥..."); 
-		system("pause>nul"); 
-	}
-	
-	menu();
+    char ch;
+    
+    printf("\n\t\tæ˜¯å¦ç¡®è®¤(Y/N)ï¼š");
+    scanf("%c", &ch);
+    getchar();
+    
+    if ('Y'==ch || 'y'==ch)
+    {
+        file_save();
+        
+        printf("æŒ‰Enteré”®è¿”å›ä¸»èœå•..."); 
+        getchar(); 
+    }
+    
+    menu();
 }
 
 void ifo_exit(void)
 {
-	char ch;
-	 
- 	if (!file_saved)
-	{
-		printf("\n\t\tÊÇ·ñ±£´æÎÄ¼ş(Y/N)£º");
-		scanf("%c", &ch);
-		getchar();
-		
-		if ('Y'==ch || 'y'==ch)
-		{
-			file_save();
-		
-			printf("°´ÈÎÒâ¼üÍË³ö..."); 
-			system("pause>nul"); 
-		}
-	}
-	
-	return;	
+    char ch;
+     
+    if (!file_saved)
+    {
+        printf("\n\t\tæ˜¯å¦ä¿å­˜æ–‡ä»¶(Y/N)ï¼š");
+        scanf("%c", &ch);
+        getchar();
+        
+        if ('Y'==ch || 'y'==ch)
+        {
+            file_save();
+        
+            printf("æŒ‰Enteré”®é€€å‡º..."); 
+            getchar(); 
+        }
+    }
+    
+    return; 
 }
+

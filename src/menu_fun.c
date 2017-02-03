@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <windows.h>
 #include "menu_fun.h"
 #include "ifo_fun.h"
 
@@ -8,104 +7,104 @@ void menu(void)
     int ch;
     void (*fun[])(void)={ifo_exit, ifo_input, ifo_delete, ifo_modify, ifo_search, ifo_view, ifo_sort, ifo_stats, ifo_reload, ifo_save};
 
-	menu_print();
+    menu_print();
 
-    printf("\n\t\tÇëÑ¡Ôñ£º");
+    printf("\n\t\tè¯·é€‰æ‹©ï¼š");
 
-	while (scanf("%d", &ch),ch<0 || ch>=FUN_NUM)
-	{
-		while (getchar()!='\n');
-		printf("\n\t\tÊäÈëÓĞÎó,ÇëÖØĞÂÊäÈë£º");
-	}
+    while (scanf("%d", &ch),ch<0 || ch>=FUN_NUM)
+    {
+        while (getchar()!='\n');
+        printf("\n\t\tè¾“å…¥æœ‰è¯¯,è¯·é‡æ–°è¾“å…¥ï¼š");
+    }
 
-	getchar();
+    getchar();
 
-	fun[ch]();
+    fun[ch]();
 
-	return;
+    return;
 }
 
 void menu_print(void)
-{	
-	int i=0;
-	
-    system("cls");
+{   
+    int i=0;
+    
+    printf("\033c");
 
-	printf("\t\t*************Ñ§Éú³É¼¨¹ÜÀíÏµÍ³*************\n\n");
-	printf("\t\t\t\t%d.ĞÅÏ¢Â¼Èë\n\n", ++i);
-    printf("\t\t\t\t%d.ĞÅÏ¢É¾³ı\n\n", ++i);	
-    printf("\t\t\t\t%d.ĞÅÏ¢ĞŞ¸Ä\n\n", ++i);
-    printf("\t\t\t\t%d.ĞÅÏ¢²éÑ¯\n\n", ++i);
-	printf("\t\t\t\t%d.ĞÅÏ¢ä¯ÀÀ\n\n", ++i);
-    printf("\t\t\t\t%d.ĞÅÏ¢ÅÅĞò\n\n", ++i);
-    printf("\t\t\t\t%d.ĞÅÏ¢Í³¼Æ\n\n", ++i);
-    printf("\t\t\t\t%d.ÖØĞÂÔØÈë\n\n", ++i);
-    printf("\t\t\t\t%d.±£´æÎÄ¼ş\n\n", ++i);
-	printf("\t\t************* ÍË³öÏµÍ³ÇëÊäÈë0 ************\n");
+    printf("\t\t*************å­¦ç”Ÿæˆç»©ç®¡ç†ç³»ç»Ÿ*************\n\n");
+    printf("\t\t\t\t%d.ä¿¡æ¯å½•å…¥\n\n", ++i);
+    printf("\t\t\t\t%d.ä¿¡æ¯åˆ é™¤\n\n", ++i); 
+    printf("\t\t\t\t%d.ä¿¡æ¯ä¿®æ”¹\n\n", ++i);
+    printf("\t\t\t\t%d.ä¿¡æ¯æŸ¥è¯¢\n\n", ++i);
+    printf("\t\t\t\t%d.ä¿¡æ¯æµè§ˆ\n\n", ++i);
+    printf("\t\t\t\t%d.ä¿¡æ¯æ’åº\n\n", ++i);
+    printf("\t\t\t\t%d.ä¿¡æ¯ç»Ÿè®¡\n\n", ++i);
+    printf("\t\t\t\t%d.é‡æ–°è½½å…¥\n\n", ++i);
+    printf("\t\t\t\t%d.ä¿å­˜æ–‡ä»¶\n\n", ++i);
+    printf("\t\t************* é€€å‡ºç³»ç»Ÿè¯·è¾“å…¥0 ************\n");
 
-	return;
+    return;
 }
 
 void menu_sort(int *sort_ch, int *sort_op, int *num)
-{	
-	*num = menu_sort_print();
-	
-	printf("\n\t\tÊäÈëÄãµÄÑ¡Ôñ£º"); 
-	
-	while (scanf("%d", sort_ch),*sort_ch<1 || *sort_ch>*num)
-	{
-		while (getchar()!='\n');
-		printf("\n\t\tÊäÈëÓĞÎó,ÇëÖØĞÂÊäÈë£º");
-	}
-	
-	printf("\n\t\tÉıĞò/½µĞò(1/0)£º");
- 	while (scanf("%d", sort_op),*sort_op!=1 && *sort_op!=0)
-	{
-		while (getchar()!='\n');
-		printf("\n\t\tÊäÈëÓĞÎó,ÇëÖØĞÂÊäÈë£º");
-	}
+{   
+    *num = menu_sort_print();
+    
+    printf("\n\t\tè¾“å…¥ä½ çš„é€‰æ‹©ï¼š"); 
+    
+    while (scanf("%d", sort_ch),*sort_ch<1 || *sort_ch>*num)
+    {
+        while (getchar()!='\n');
+        printf("\n\t\tè¾“å…¥æœ‰è¯¯,è¯·é‡æ–°è¾“å…¥ï¼š");
+    }
+    
+    printf("\n\t\tå‡åº/é™åº(1/0)ï¼š");
+    while (scanf("%d", sort_op),*sort_op!=1 && *sort_op!=0)
+    {
+        while (getchar()!='\n');
+        printf("\n\t\tè¾“å…¥æœ‰è¯¯,è¯·é‡æ–°è¾“å…¥ï¼š");
+    }
 }
 
 int menu_sort_print(void)
 {
-	int i;
-	
-	system("cls");
-	printf("\t\t*****************ÅÅĞò×Ö¶Î******************\n\n");
-	for (i=1; i<SCORE_NUM+1; i++)
-		printf("\t\t\t\t%d.³É¼¨%d\n\n",i,i);
-    printf("\t\t\t\t%d.×Ü·Ö\n\n",i);	
-    printf("\t\t\t\t%d.Æ½¾ù·Ö\n\n",++i);
-	printf("\t\t*******************************************\n");
+    int i;
+    
+    printf("\033c");
+    printf("\t\t*****************æ’åºå­—æ®µ******************\n\n");
+    for (i=1; i<SCORE_NUM+1; i++)
+        printf("\t\t\t\t%d.æˆç»©%d\n\n",i,i);
+    printf("\t\t\t\t%d.æ€»åˆ†\n\n",i);    
+    printf("\t\t\t\t%d.å¹³å‡åˆ†\n\n",++i);
+    printf("\t\t*******************************************\n");
 
-	return i;
+    return i;
 }
 
 void menu_stats(int *stats_ch, int *num)
 {
-	*num = menu_stats_print();
-	
-	printf("\n\t\tÊäÈëÄãµÄÑ¡Ôñ£º"); 
-	
-	while (scanf("%d", stats_ch),*stats_ch<1 || *stats_ch>*num)
-	{
-		while (getchar()!='\n');
-		printf("\n\t\tÊäÈëÓĞÎó,ÇëÖØĞÂÊäÈë£º");
-	}
+    *num = menu_stats_print();
+    
+    printf("\n\t\tè¾“å…¥ä½ çš„é€‰æ‹©ï¼š"); 
+    
+    while (scanf("%d", stats_ch),*stats_ch<1 || *stats_ch>*num)
+    {
+        while (getchar()!='\n');
+        printf("\n\t\tè¾“å…¥æœ‰è¯¯,è¯·é‡æ–°è¾“å…¥ï¼š");
+    }
 }
 
 int menu_stats_print(void)
 {
-	int i;
-	
-	system("cls");
-	printf("\t\t*************Ñ§Éú³É¼¨Í³¼Æ*************\n\n");
-	for (i=1; i<SCORE_NUM+1; i++)
-		printf("\t\t\t\t%d.³É¼¨%dÇé¿ö\n\n",i,i);
-    printf("\t\t\t\t%d.×Ü·ÖÇé¿ö\n\n",i);	
-    printf("\t\t\t\t%d.Æ½¾ù·ÖÇé¿ö\n\n",++i);
-    printf("\t\t\t\t%d.·µ»ØÖ÷²Ëµ¥\n\n",++i);
-	printf("\t\t**************************************\n");
-	
-	return i;
+    int i;
+    
+    printf("\033c");
+    printf("\t\t*************å­¦ç”Ÿæˆç»©ç»Ÿè®¡*************\n\n");
+    for (i=1; i<SCORE_NUM+1; i++)
+        printf("\t\t\t\t%d.æˆç»©%dæƒ…å†µ\n\n",i,i);
+    printf("\t\t\t\t%d.æ€»åˆ†æƒ…å†µ\n\n",i);    
+    printf("\t\t\t\t%d.å¹³å‡åˆ†æƒ…å†µ\n\n",++i);
+    printf("\t\t\t\t%d.è¿”å›ä¸»èœå•\n\n",++i);
+    printf("\t\t**************************************\n");
+    
+    return i;
 }

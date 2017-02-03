@@ -10,99 +10,99 @@ extern int file_saved;
 
 void file_load(void)
 {
-	file_read("stu.dat");
-	
-	file_saved = 1;	
+    file_read("stu.dat");
+    
+    file_saved = 1; 
 }
 
 void file_save(void)
 {
-	if (0==file_write("stu.dat"))
-	{
-		system("cls");
-		printf("ÎÄ¼ş±£´æ³É¹¦£¡");
+    printf("\033c");
 
-		file_saved = 1;
-	}
-	else
-	{
-		system("cls");
-		printf("ÎÄ¼ş±£´æÊ§°Ü£¡\n");
-	}
+    if (0==file_write("stu.dat"))
+    {
+        printf("æ–‡ä»¶ä¿å­˜æˆåŠŸï¼");
+
+        file_saved = 1;
+    }
+    else
+    {
+        printf("æ–‡ä»¶ä¿å­˜å¤±è´¥ï¼\n");
+    }
 }
 
-//½«ÎÄ¼şÖĞµÄÊı¾İ¶ÁÈëÄÚ´æ 
+//å°†æ–‡ä»¶ä¸­çš„æ•°æ®è¯»å…¥å†…å­˜ 
 int file_read(char *file_name)
 {
-	FILE *fp;
-	int i, j;
-	
-	if ((fp=fopen(file_name,"r"))==NULL)
-		return -1;
-	
-	s[1].num[0] = '\0';
-	
-	for (i=1; i<STU_NUM+1 && !feof(fp); i++)
-	{	
-		fscanf(fp,"%s\t",s[i].num);
-		
-		fscanf(fp,"%s\t",s[i].name);
-		
-		s[i].sum = 0;
-		
-		for (j=1; j<SCORE_NUM+1; j++)
-		{
-			fscanf(fp,"%f\t",&s[i].score[j]);
-			
-			s[i].sum += s[i].score[j];
-		}
-			
-		s[i].ave = s[i].sum/SCORE_NUM;
-	}
-	
-	stu_count = i-1;
+    FILE *fp;
+    int i, j;
+    
+    if ((fp=fopen(file_name,"r"))==NULL)
+        return -1;
+    
+    s[1].num[0] = '\0';
+    
+    for (i=1; i<STU_NUM+1 && !feof(fp); i++)
+    {   
+        fscanf(fp,"%s\t",s[i].num);
+        
+        fscanf(fp,"%s\t",s[i].name);
+        
+        s[i].sum = 0;
+        
+        for (j=1; j<SCORE_NUM+1; j++)
+        {
+            fscanf(fp,"%f\t",&s[i].score[j]);
+            
+            s[i].sum += s[i].score[j];
+        }
+            
+        s[i].ave = s[i].sum/SCORE_NUM;
+    }
+    
+    stu_count = i-1;
 
-	if (s[1].num[0] == '\0')
-	{
-		stu_count=0;
-		s[0].next = NULL;
-	}
-	
-	for (i=0; i<stu_count; i++)
-		s[i].next = &s[i+1];
-			
-	s[stu_count].next = NULL;
-	
-	fclose(fp);
-	
-	return 0;
+    if (s[1].num[0] == '\0')
+    {
+        stu_count=0;
+        s[0].next = NULL;
+    }
+    
+    for (i=0; i<stu_count; i++)
+        s[i].next = &s[i+1];
+            
+    s[stu_count].next = NULL;
+    
+    fclose(fp);
+    
+    return 0;
 }
 
-//½«ÄÚ´æÖĞµÄÊı¾İĞ´»ØÎÄ¼ş 
+//å°†å†…å­˜ä¸­çš„æ•°æ®å†™å›æ–‡ä»¶ 
 int file_write(char *file_name)
 {
-	FILE *fp;
-	stu *p=s[0].next;
-	int j;
-	
-	if((fp=fopen(file_name,"w"))==NULL)
-		return -1; 
-		
-	while (stu_count != 0 && p != NULL)
-	{
-		fprintf(fp,"%s\t",p->num);
-		fprintf(fp,"%s\t",p->name);
-		
-		for (j=1;j<SCORE_NUM+1; j++)
-			fprintf(fp,"%.2f\t",p->score[j]);
-			
-		p = p->next;
-		
-		if (p != NULL)
-			fprintf(fp,"\n");
-	}
-			
-	fclose(fp);
-	
-	return 0;
+    FILE *fp;
+    stu *p=s[0].next;
+    int j;
+    
+    if((fp=fopen(file_name,"w"))==NULL)
+        return -1; 
+        
+    while (stu_count != 0 && p != NULL)
+    {
+        fprintf(fp,"%s\t",p->num);
+        fprintf(fp,"%s\t",p->name);
+        
+        for (j=1;j<SCORE_NUM+1; j++)
+            fprintf(fp,"%.2f\t",p->score[j]);
+            
+        p = p->next;
+        
+        if (p != NULL)
+            fprintf(fp,"\n");
+    }
+            
+    fclose(fp);
+    
+    return 0;
 } 

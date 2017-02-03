@@ -4,8 +4,8 @@
 
 int main(void)
 {
-	file_load();
-	
+    file_load();
+    
     menu();
     
     return 0;
